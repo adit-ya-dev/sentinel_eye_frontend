@@ -1,10 +1,38 @@
-export default function DataLogsPage() {
+"use client";
+
+import DashboardHeader from "./components/DashboardHeader";
+import StatsCards from "./components/StatsCards";
+import ThreatLevelCard from "./components/ThreatLevelCard";
+import NDVITrendChart from "./components/NDVITrendChart";
+import RecentScansTable from "./components/RecentScansTable";
+import AlertsPreview from "./components/AlertsPreview";
+
+export default function DashboardPage() {
   return (
-    <div className="border border-white/10 bg-[#071225] rounded-2xl p-6 shadow-xl">
-      <h2 className="text-lg font-bold text-white/90">Dashboard</h2>
-      <p className="mt-2 text-sm text-white/60">
-        This section will show saved scan history, API logs, and system events.
-      </p>
+    <div className="space-y-6">
+      <DashboardHeader />
+
+      <StatsCards />
+
+      <div className="grid grid-cols-12 gap-6">
+        <div className="col-span-12 lg:col-span-4">
+          <ThreatLevelCard />
+        </div>
+
+        <div className="col-span-12 lg:col-span-8">
+          <NDVITrendChart />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-12 gap-6">
+        <div className="col-span-12 lg:col-span-8">
+          <RecentScansTable />
+        </div>
+
+        <div className="col-span-12 lg:col-span-4">
+          <AlertsPreview />
+        </div>
+      </div>
     </div>
   );
 }
