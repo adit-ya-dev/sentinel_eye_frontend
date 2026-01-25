@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import AppShell from "@/src/components/layout/AppShell";
+import AppShell from "@/components/layout/AppShell";
 
 export const metadata: Metadata = {
   title: "Land Guard | Sentinel Eye",

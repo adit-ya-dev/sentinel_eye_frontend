@@ -1,9 +1,22 @@
+"use client";
+
+import { useDashboardStats } from "@/hooks/useDashboardStats";
+import { formatNdvi, formatPercent } from "@/lib/utils/format";
+
 export default function StatsCards() {
+  const { data, loading } = useDashboardStats();
+
   const stats = [
-    { label: "Mean NDVI", value: "0.42", badge: "MODERATE" },
-    { label: "Forest Loss", value: "24%", badge: "CRITICAL" },
-    { label: "Urban Gain", value: "13%", badge: "WARNING" },
-    { label: "Scans Today", value: "08", badge: "ACTIVE" },
+    { label: "Mean NDVI", value: data ? formatNdvi(data.meanNdvi) : "--" },
+    {
+      label: "Forest Loss",
+      value: data ? formatPercent(data.forestLossPercent) : "--",
+    },
+    {
+      label: "Urban Gain",
+      value: data ? formatPercent(data.urbanGainPercent) : "--",
+    },
+    { label: "Scans Today", value: data ? String(data.scansToday) : "--" },
   ];
 
   return (
@@ -17,13 +30,9 @@ export default function StatsCards() {
             {s.label}
           </p>
 
-          <div className="mt-2 flex items-end justify-between">
-            <h2 className="text-3xl font-black text-white">{s.value}</h2>
-
-            <span className="rounded-full bg-white/5 border border-white/10 px-3 py-1 text-xs font-bold text-white/70">
-              {s.badge}
-            </span>
-          </div>
+          <h2 className="mt-2 text-3xl font-black text-white">
+            {loading ? "..." : s.value}
+          </h2>
         </div>
       ))}
     </div>
