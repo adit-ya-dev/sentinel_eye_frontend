@@ -2,16 +2,22 @@
 
 export default function ScanResultHeader() {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-5 shadow-xl">
-      <p className="text-xs uppercase tracking-widest text-white/40">
-        Scan Result
-      </p>
-      <h1 className="mt-2 text-2xl font-black tracking-wide text-white">
-        SENTINEL EYE — Results & History
+    <div className="flex flex-col py-4">
+      {/* Primary Bold Heading */}
+      <h1 className="text-2xl font-bold tracking-tight text-white sm:text-2xl">
+        Scan Results
       </h1>
-      <p className="mt-1 text-sm text-white/60">
-        View latest scan output, compare imagery, and download reports.
-      </p>
+
+      {/* Minimalist Sub-heading with Bullet Points */}
+      <div className="mt-2 flex flex-wrap items-center gap-2 text-sm text-white/50 font-medium">
+        <span>Sentinel Eye overview</span>
+        <span className="text-white/20">•</span>
+        <span>NDVI</span>
+        <span className="text-white/20">•</span>
+        <span>Encroachment</span>
+        <span className="text-white/20">•</span>
+        <span>Alerts</span>
+      </div>
     </div>
   );
 }

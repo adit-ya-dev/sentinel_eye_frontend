@@ -1,31 +1,70 @@
+"use client";
+
+import { Fingerprint, CalendarDays, Zap } from "lucide-react";
 import type { ScanResultResponse } from "@/types/scanResult";
 
 export default function ScanTimeline({ data }: { data: ScanResultResponse }) {
   return (
-    <div className="glass-card rounded-2xl p-5 shadow-xl">
-      <p className="text-xs uppercase tracking-widest text-white/40">
-        Timeline
+    <div className="flex flex-col py-4">
+      <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">
+        Temporal Metadata
       </p>
 
-      <div className="mt-4 space-y-3 text-sm text-white/70">
-        <p>
-          📍 Scan ID:{" "}
-          <span className="text-white font-bold">{data.scanId}</span>
-        </p>
-        <p>
-          🛰 Before Date:{" "}
-          <span className="text-white/90">{data.timestamps.before}</span>
-        </p>
-        <p>
-          🛰 After Date:{" "}
-          <span className="text-white/90">{data.timestamps.after}</span>
-        </p>
-        <p>
-          🧠 Analyzed At:{" "}
-          <span className="text-white/90">
-            {new Date(data.timestamps.analyzedAt).toLocaleString()}
-          </span>
-        </p>
+      <div className="mt-4 space-y-4">
+        {/* Scan ID */}
+        <div className="flex items-center gap-3">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 border border-white/10">
+            <Fingerprint className="h-4 w-4 text-blue-400" />
+          </div>
+          <div>
+            <p className="text-[10px] uppercase tracking-wider text-white/40 font-bold">
+              Scan Identity
+            </p>
+            <p className="text-sm font-mono text-white">{data.scanId}</p>
+          </div>
+        </div>
+
+        {/* Date Range Group */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="flex items-center gap-3">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 border border-white/10">
+              <CalendarDays className="h-4 w-4 text-white/60" />
+            </div>
+            <div>
+              <p className="text-[10px] uppercase tracking-wider text-white/40 font-bold">
+                Baseline Date
+              </p>
+              <p className="text-sm text-white/90">{data.timestamps.before}</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 border border-white/10">
+              <CalendarDays className="h-4 w-4 text-white/60" />
+            </div>
+            <div>
+              <p className="text-[10px] uppercase tracking-wider text-white/40 font-bold">
+                Analysis Date
+              </p>
+              <p className="text-sm text-white/90">{data.timestamps.after}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Processing Timestamp */}
+        <div className="flex items-center gap-3 border-t border-white/5 pt-4">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+            <Zap className="h-4 w-4 text-emerald-400" />
+          </div>
+          <div>
+            <p className="text-[10px] uppercase tracking-wider text-white/40 font-bold">
+              Processed At
+            </p>
+            <p className="text-sm text-white/90">
+              {new Date(data.timestamps.analyzedAt).toLocaleString()}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
