@@ -5,8 +5,6 @@ import {
   Leaf,
   Search,
   FileText,
-  Check,
-  X,
   Loader2,
 } from "lucide-react";
 
@@ -26,16 +24,10 @@ export default function ScanProgressLog({
   ];
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-2xl p-6 shadow-2xl">
-      <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
-        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40">
-          System Diagnostics
-        </p>
-        <span className="text-[9px] font-mono text-primary/60">
-          v4.0.2-SECURE
-        </span>
-      </div>
-
+    <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground mb-6">
+        System Diagnostics
+      </p>
       <div className="space-y-4">
         {steps.map((step) => {
           const status = loading
@@ -48,10 +40,10 @@ export default function ScanProgressLog({
               <div
                 className={`w-8 h-8 rounded-lg flex items-center justify-center border transition-all ${
                   status === "completed"
-                    ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
+                    ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-600 dark:text-emerald-400"
                     : status === "processing"
-                      ? "bg-primary/10 border-primary/40 text-primary animate-pulse"
-                      : "bg-white/5 border-white/5 text-white/20"
+                      ? "bg-primary/10 border-primary/20 text-primary animate-pulse"
+                      : "bg-muted border-border text-muted-foreground/30"
                 }`}
               >
                 {status === "processing" ? (
@@ -62,11 +54,11 @@ export default function ScanProgressLog({
               </div>
               <div className="flex-1">
                 <p
-                  className={`text-[10px] font-black tracking-widest ${status === "pending" ? "text-white/20" : "text-white/80"}`}
+                  className={`text-[10px] font-black tracking-widest ${status === "pending" ? "text-muted-foreground/30" : "text-foreground"}`}
                 >
                   {step.label}
                 </p>
-                <div className="h-[2px] w-full bg-white/5 mt-1 rounded-full overflow-hidden">
+                <div className="h-[2px] w-full bg-muted mt-1 rounded-full overflow-hidden">
                   <div
                     className={`h-full transition-all duration-1000 ${status === "completed" ? "w-full bg-emerald-500" : status === "processing" ? "w-1/2 bg-primary" : "w-0"}`}
                   />

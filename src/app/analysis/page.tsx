@@ -19,30 +19,24 @@ export default function MapAnalysisPage() {
   const { run, loading, result, error } = useAnalyzeRegion();
 
   return (
-    <div className="min-h-screen bg-[#020817] text-white">
-      {/* THE HEADER:
-         - z-[150] ensures it is higher than everything else.
-         - Solid bg-[#020817] prevents the "ghosting" overlap seen in your image.
-         - No border-b to remove that line you disliked.
-      */}
-      <header className="sticky top-0 z-[150] w-full bg-[#020817] py-6 shadow-2xl">
-        <div className="container mx-auto px-6">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+      <header className="sticky top-0 z-[150] bg-background/80 backdrop-blur-md border-b border-border/50">
+        <div className="container mx-auto px-6 py-4">
           <AnalysisHeader />
         </div>
       </header>
 
       <main className="container mx-auto px-6 py-8">
-        {/* Removed the big global card wrapper. Components are now independent blocks. */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* LEFT COLUMN: PRIMARY WORKSPACE */}
           <div className="lg:col-span-8 space-y-8">
             {/* Map Block */}
-            <div className="rounded-2xl border border-white/10 shadow-xl overflow-hidden h-[550px]">
+            <div className="rounded-2xl border border-border shadow-xl overflow-hidden h-[550px] bg-card">
               <MapAOISelector onBboxChange={setBbox} result={result} />
             </div>
 
             {/* Action/Command Block */}
-            <div className="flex flex-col md:flex-row gap-4 p-6 rounded-2xl bg-white/5 border border-white/10 items-center">
+            <div className="flex flex-col md:flex-row gap-4 p-6 rounded-2xl bg-card border border-border items-center shadow-sm">
               <div className="flex-1 w-full">
                 <DateRangePicker
                   startDate={startDate}
@@ -69,7 +63,7 @@ export default function MapAnalysisPage() {
               </div>
             </div>
 
-            {/* Visual Hub - Only appears when result exists */}
+            {/* Visual Hub */}
             {result && <VisualResultsCard result={result} />}
           </div>
 

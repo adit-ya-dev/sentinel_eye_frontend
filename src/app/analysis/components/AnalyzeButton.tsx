@@ -1,5 +1,4 @@
 "use client";
-
 import { Scan, Loader2, MapPin } from "lucide-react";
 
 export default function AnalyzeButton({
@@ -18,8 +17,8 @@ export default function AnalyzeButton({
         disabled={loading || disabled}
         className={`w-full group relative flex items-center justify-center gap-3 px-6 py-4 rounded-xl border transition-all duration-200 text-xs font-bold tracking-widest uppercase ${
           loading || disabled
-            ? "bg-transparent border-white/10 text-white/30 cursor-not-allowed"
-            : "bg-white text-black border-white hover:bg-zinc-200 active:scale-[0.98]"
+            ? "bg-muted border-border text-muted-foreground cursor-not-allowed"
+            : "bg-primary text-primary-foreground border-primary hover:opacity-90 active:scale-[0.98]"
         }`}
       >
         {loading ? (
@@ -39,10 +38,8 @@ export default function AnalyzeButton({
           </>
         )}
       </button>
-
-      {/* Optional: Subtle help text below the button */}
       {!loading && disabled && (
-        <p className="text-[10px] text-center mt-2 text-white/40 tracking-tight">
+        <p className="text-[10px] text-center mt-2 text-muted-foreground tracking-tight">
           Awaiting Area of Interest (AOI) selection
         </p>
       )}
