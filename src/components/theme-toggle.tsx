@@ -2,16 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
+import { Sun, Moon } from "lucide-react";
 
 export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // ✅ Prevent hydration mismatch
+  useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
   const isLight = theme === "light";
@@ -19,13 +16,12 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(isLight ? "dark" : "light")}
-      className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors
-      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
-      disabled:opacity-50 disabled:pointer-events-none ring-offset-background hover:bg-accent hover:text-accent-foreground
-      h-10 w-10"
+      className="h-9 w-9 flex items-center justify-center rounded-md
+      hover:bg-accent transition focus:outline-none focus:ring-2 focus:ring-primary/30"
+      aria-label="Toggle theme"
       title={isLight ? "Switch to dark mode" : "Switch to light mode"}
     >
-      {isLight ? "🌙" : "☀️"}
+      {isLight ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
     </button>
   );
 }
