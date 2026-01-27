@@ -49,7 +49,10 @@ export function generateAlertsFromScans(scans: unknown): Alert[] {
     }
 
     // 🟠 WARNING: Urban Expansion
-    if (scan.transitions?.urbanExpansionPercent >= 15) {
+    // Check if the property exists and is a number before comparing
+    const expansion = scan.transitions?.urbanExpansionPercent;
+
+    if (expansion !== undefined && expansion >= 15) {
       alerts.push({
         id: `${scanId}-URBAN`,
         scanId,
@@ -57,7 +60,7 @@ export function generateAlertsFromScans(scans: unknown): Alert[] {
         severity: "WARNING",
         type: "URBAN_EXPANSION",
         title: "Rapid Urban Expansion",
-        description: `${scan.transitions.urbanExpansionPercent}% increase in urban area detected.`,
+        description: `${expansion}% increase in urban area detected.`,
         regionName,
         recommendation: [
           "Review zoning permissions",
@@ -65,7 +68,6 @@ export function generateAlertsFromScans(scans: unknown): Alert[] {
         ],
       });
     }
-  }
 
   return alerts.sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),

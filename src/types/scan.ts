@@ -11,6 +11,26 @@ export type ScanHealthStatus =
   | "MODERATE"
   | "GOOD"
   | "EXCELLENT";
+export interface ScanResult {
+  scanId: string;
+  createdAt: string;
+  regionName: string;
+  bbox: BoundingBox;
+  dateRange: DateRange;
+  severity: ScanSeverity;
+  status: ScanStatus;
+  transitions: {
+    forestToUrbanPercent: number;
+    waterToLandPercent: number;
+    urbanExpansionPercent: number; // <--- Add this line
+  };
+  ndvi: NDVIStats;
+  images: ScanImages;
+  message?: string;
+  forestLossPercent?: number;
+  urbanGainPercent?: number;
+  meanNdvi?: number;
+}
 
 export interface ScanImages {
   beforeImageUrl: string;
