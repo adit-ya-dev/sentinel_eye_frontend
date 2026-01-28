@@ -11,7 +11,7 @@ export interface BoundingBox {
 
 export interface AOIRequest {
   bbox: BoundingBox;
-  startDate: string; // YYYY-MM-DD
-  endDate: string; // YYYY-MM-DD
+  startDate: string; 
+  endDate: string; 
   regionName?: string;
 }
