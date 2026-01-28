@@ -1,8 +1,4 @@
-// src/types/analysis.ts  (recommended file name)
 
-/**
- * Shared severity levels used in dashboard stats, alerts, and analysis results
- */
 export type Severity = "LOW" | "MODERATE" | "WARNING" | "CRITICAL";
 
 /**
