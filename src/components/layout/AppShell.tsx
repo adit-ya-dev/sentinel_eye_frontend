@@ -131,7 +131,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                     : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
                 ].join(" ")}
               >
-                {/* Active indicator bar */}
+                {/* Active indicator bar - This is your main visual cue now */}
                 <span
                   className={[
                     "absolute left-0 top-1/2 -translate-y-1/2 h-8 w-1 rounded-r-full transition-all",
@@ -165,10 +165,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                   {item.name}
                 </span>
 
-                {/* Active dot indicator - visible when collapsed */}
-                {isActive && !isExpanded && (
-                  <span className="absolute right-2 w-1.5 h-1.5 rounded-full bg-primary-foreground dark:bg-white animate-pulse" />
-                )}
+                {/* The active dot indicator was removed from here */}
               </Link>
             );
           })}
@@ -181,11 +178,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               <Button
                 variant="ghost"
                 className={[
-                  "w-full justify-start gap-3 h-auto py-2 rounded-xl transition-all duration-300 hover:bg-accent",
-                  !isExpanded && "px-2 justify-center",
+                  "w-full justify-start gap-3 h-14 rounded-xl transition-all duration-300 hover:bg-accent relative overflow-hidden",
+                  !isExpanded ? "px-0 justify-center" : "px-3",
                 ].join(" ")}
               >
-                <div className="relative w-9 h-9 rounded-full overflow-hidden ring-2 ring-primary/20 dark:ring-primary/30 shadow-sm flex-shrink-0">
+                {/* Avatar - kept stable in the center or left */}
+                <div className="relative w-9 h-9 rounded-full overflow-hidden ring-2 ring-primary/20 dark:ring-primary/30 shadow-sm flex-shrink-0 transition-transform duration-300">
                   <Image
                     src="/avatar.png"
                     alt="User Avatar"
@@ -193,30 +191,30 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                     className="object-cover"
                   />
                 </div>
-                <div
-                  className={[
-                    "flex-1 text-left leading-tight transition-all duration-300",
-                    isExpanded
-                      ? "opacity-100 translate-x-0"
-                      : "opacity-0 -translate-x-2 w-0 overflow-hidden",
-                  ].join(" ")}
-                >
-                  <p className="text-sm font-semibold text-foreground">
-                    Aditya Pamar
-                  </p>
-                  <p className="text-xs text-muted-foreground">Premium</p>
-                </div>
-                <ChevronDown
-                  className={[
-                    "w-4 h-4 text-muted-foreground transition-all duration-300 flex-shrink-0",
-                    isExpanded
-                      ? "opacity-100 translate-x-0"
-                      : "opacity-0 -translate-x-2 w-0 overflow-hidden",
-                  ].join(" ")}
-                />
+
+                {/* User Info - Wrapped in an animate-presence style logic */}
+                {isExpanded && (
+                  <div className="flex flex-1 items-center min-w-0 animate-in fade-in slide-in-from-left-2 duration-300">
+                    <div className="flex-1 text-left leading-tight truncate">
+                      <p className="text-sm font-semibold text-foreground truncate">
+                        Aditya Parmar
+                      </p>
+                      <p className="text-xs text-muted-foreground truncate">
+                        Premium
+                      </p>
+                    </div>
+                    <ChevronDown className="w-4 h-4 text-muted-foreground ml-2 flex-shrink-0" />
+                  </div>
+                )}
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
+
+            <DropdownMenuContent
+              side={isExpanded ? "bottom" : "right"}
+              align={isExpanded ? "end" : "start"}
+              sideOffset={12}
+              className="w-56"
+            >
               <DropdownMenuItem className="cursor-pointer">
                 <User className="w-4 h-4 mr-2" />
                 Profile

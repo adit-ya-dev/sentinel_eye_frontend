@@ -203,6 +203,42 @@ export default function LeafletMapClient({
     };
   }, [drawingMode]);
 
+  // Fix map rendering on resize/layout changes (sidebar toggle fix)
+  useEffect(() => {
+    if (!mapInstance.current) return;
+
+    const handleResize = () => {
+      // Use setTimeout to ensure DOM has updated after sidebar animation
+      setTimeout(() => {
+        if (mapInstance.current) {
+          mapInstance.current.invalidateSize();
+        }
+      }, 350); // Slightly longer than sidebar transition (300ms)
+    };
+
+    // Listen for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Create a ResizeObserver to watch for container size changes
+    let resizeObserver: ResizeObserver | null = null;
+    if (mapRef.current) {
+      resizeObserver = new ResizeObserver(() => {
+        handleResize();
+      });
+      resizeObserver.observe(mapRef.current);
+    }
+
+    // Also invalidate size when component mounts
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
+    };
+  }, [mapLoaded]);
+
   const handleClearSelection = () => {
     if (rectangleRef.current && mapInstance.current) {
       mapInstance.current.removeLayer(rectangleRef.current);
