@@ -1,14 +1,13 @@
 "use client";
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
+  DialogTitle,
 } from "@/components/ui/dialog";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { BookOpen } from "lucide-react";
 import ResearchPapersModal from "./ResearchPapersModal";
 
@@ -31,7 +30,6 @@ export default function DashboardHeader() {
           <span className="text-primary">Alerts</span>
         </div>
       </div>
-
       <div className="flex gap-2">
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
@@ -43,15 +41,11 @@ export default function DashboardHeader() {
               Research Papers
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl bg-card border-border text-foreground rounded-2xl shadow-2xl">
-            <DialogHeader>
-              <DialogTitle className="text-xl font-black uppercase tracking-tight border-b border-border pb-4">
-                Scientific Research Papers
-              </DialogTitle>
-            </DialogHeader>
-            <div className="mt-4">
-              <ResearchPapersModal open={open} onClose={() => setOpen(false)} />
-            </div>
+          <DialogContent className="max-w-2xl bg-card border-border text-foreground rounded-2xl shadow-2xl p-0">
+            <VisuallyHidden>
+              <DialogTitle>Research Papers</DialogTitle>
+            </VisuallyHidden>
+            <ResearchPapersModal open={open} onClose={() => setOpen(false)} />
           </DialogContent>
         </Dialog>
       </div>
